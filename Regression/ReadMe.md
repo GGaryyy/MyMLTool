@@ -1,6 +1,6 @@
 # Regression
 
-Here have Regression Moele to solve Regression
+Here have Regression Moele to solve regression problem
 
 What Model are here?
 - Simple Linear Regression
