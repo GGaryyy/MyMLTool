@@ -20,7 +20,7 @@ regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 
 # Predict the test dataset
-y_pred = classifier.predict(X_test)
+y_pred = regressor.predict(X_test)
 
 # r2_score
 from sklearn.metrics import r2_score
