@@ -21,7 +21,7 @@ sc_y = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 y_train = sc_y.fit_transform(y_train)
 
-# Training SVR model 
+# Training Support Vector Regression model 
 from sklearn.svm import SVR
 regressor = SVR(kernel = 'rbf')
 regressor.fit(X_train, y_train)
