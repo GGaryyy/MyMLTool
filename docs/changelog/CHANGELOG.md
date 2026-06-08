@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`docs/examples/usage_demo.ipynb`** — executed Jupyter notebook demonstrating
+  end-to-end usage of the data-prep pipeline (`load_dataset` → `split_features_target`
+  → `split_train_test` → `scale_features` → `prepare_data`, plus training a model)
+  and the `FeatureShiftDetector` (no-drift vs drifted runtime batches, per-feature
+  `DriftReport`, and the low-level `ks_drift` / `compute_psi` / `chi2_drift` helpers).
+
 ## [1.0.0] - 2026-06-08
 
 ### Added
