@@ -1,4 +1,4 @@
-"""Markdown / JSON / PNG report writers for the 公文 NLP pipeline.
+"""Markdown / JSON / PNG report writers for the Chinese-text NLP pipeline.
 
 Output layout (always under a caller-supplied ``out_dir``; nothing is ever
 written to the repo root):
@@ -186,7 +186,7 @@ def _fmt_seconds(value) -> str:
 # --------------------------------------------------------------------------- #
 def _eda_markdown(report: TextEdaReport) -> str:
     parts = [
-        "# 公文文本 EDA 報告",
+        "# 中文文本 EDA 報告",
         _md_overview(report),
         _md_length(report.length),
         _md_balance(report.balance),
@@ -328,7 +328,7 @@ def _md_advice(warnings_list) -> str:
 # --------------------------------------------------------------------------- #
 def _benchmark_markdown(result: dict) -> str:
     parts = [
-        "# 公文分類基準測試報告",
+        "# 文本分類基準測試報告",
         _md_bench_summary(result),
         _md_bench_details(result),
         _md_bench_ranking(result),
@@ -447,7 +447,7 @@ def _ranked_names(result: dict, ok_models: list) -> list:
 # --------------------------------------------------------------------------- #
 def _feature_selection_markdown(report: "FeatureSelectionReport") -> str:
     parts = [
-        "# 公文特徵篩選分析與建議報告",
+        "# 中文文本特徵篩選分析與建議報告",
         _md_fs_overview(report),
         _md_fs_term(report.term),
     ]

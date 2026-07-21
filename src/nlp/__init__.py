@@ -1,4 +1,4 @@
-"""NLP sub-package for 公文 (Traditional Chinese government document) analysis.
+"""NLP sub-package for Traditional Chinese text analysis.
 
 Provides a text EDA module, a pluggable model benchmark harness and
 GPU/device utilities. Heavy dependencies (torch, transformers, spacy) are

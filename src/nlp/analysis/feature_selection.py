@@ -1,4 +1,4 @@
-"""Feature-selection *recommendation* for 公文 classification.
+"""Feature-selection *recommendation* for Chinese text classification.
 
 This module produces an ANALYSIS & RECOMMENDATION report only — it never
 trains the shipped models nor touches the benchmark. It answers two
@@ -8,7 +8,7 @@ questions a modeller asks before tuning a TF-IDF baseline:
   n-gram setting cross-validates best, which terms are near-duplicates, and
   which terms each ranking method (chi², mutual-info, ANOVA, L1-logreg,
   tree-importance) surfaces.
-- Structured metadata (機關/文別/速別/密級/年度…): how relevant each column
+- Structured metadata (部門/類型/等級/年度…): how relevant each column
   is to the label, and which columns are redundant with one another
   (Cramér's V, Pearson, VIF) — so low-value or collinear columns can be
   dropped.

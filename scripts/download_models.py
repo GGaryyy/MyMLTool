@@ -1,4 +1,4 @@
-"""Pre-download Hugging Face models for offline 公文 NLP deployment.
+"""Pre-download Hugging Face models for offline Chinese-text NLP deployment.
 
 Run this in an internet-connected environment BEFORE `docker save`, so the
 delivered image / mounted /models volume works with HF_HUB_OFFLINE=1 on the

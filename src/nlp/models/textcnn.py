@@ -1,4 +1,4 @@
-"""TextCNN classifier for 公文 text classification (Kim, 2014).
+"""TextCNN classifier for Chinese text classification (Kim, 2014).
 
 Character-embedding + parallel 1-D convolutions over several kernel widths,
 max-over-time pooling, dropout and a linear head. Lightweight and fast to

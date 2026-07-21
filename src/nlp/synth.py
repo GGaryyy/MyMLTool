@@ -1,4 +1,4 @@
-"""Deterministic synthetic 公文 generator for tests and demos.
+"""Deterministic synthetic Chinese-document generator for tests and demos.
 
 ALL content is FICTIONAL. Agency names, reference numbers, contact names and
 every PII-looking string (身分證 number ``A123456789``, phone
@@ -6,7 +6,7 @@ every PII-looking string (身分證 number ``A123456789``, phone
 purpose so cleaning / EDA code has defects to find. No real document,
 agency decision or person is represented.
 
-Documents follow the Taiwan government document style (機關 + 文別 +
+Documents follow Taiwan-style formal Chinese document conventions (機關 + 文別 +
 發文字號 + 主旨 + 說明) with per-topic vocabulary, so the six ``TOPICS`` are
 separable by a text classifier. Generation draws from
 ``numpy.random.default_rng(seed)`` exclusively — the same arguments always
@@ -207,7 +207,7 @@ def _inject_defects(rng: np.random.Generator, texts: list[str],
 
 def generate_synthetic_gov_docs(mode: str = "balanced", n_docs: int = 200,
                                 seed: int = 0, inject_defects: bool = True) -> pd.DataFrame:
-    """Generate a fictional 公文 dataset as ``DataFrame[["text", "label"]]``.
+    """Generate a fictional Chinese-document dataset as ``DataFrame[["text", "label"]]``.
 
     Columns are exactly ``["text", "label"]`` — text first, label LAST,
     matching the repo convention. Multilabel labels are ``"|"``-joined

@@ -1,4 +1,4 @@
-"""Command-line entry point for the 公文 NLP pipeline (Docker entrypoint).
+"""Command-line entry point for the Chinese-text NLP pipeline (Docker entrypoint).
 
 Subcommands:
     diagnose         GPU / wheel-compatibility report (装机第一步验证)
@@ -134,7 +134,7 @@ def _split_index_map(dataset) -> dict:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python -m src.nlp.cli",
-        description="公文 (繁中) NLP 分析與選型 pipeline",
+        description="中文文本 (繁中) NLP 分析與選型 pipeline",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 

@@ -1,6 +1,6 @@
 """End-to-end tests: full CLI workflow a user/operator runs.
 
-diagnose -> eda -> benchmark against a synthetic 公文 CSV, verifying the
+diagnose -> eda -> benchmark against a synthetic Chinese text CSV, verifying the
 report artifacts land under output_dir. Includes one real lightweight-DL
 model (TextCNN, 1 epoch, CPU) so the deep-learning path is exercised end to
 end, kept tiny for speed.
@@ -21,7 +21,7 @@ def workspace(tmp_path):
     from src.nlp.synth import generate_synthetic_gov_docs
 
     df = generate_synthetic_gov_docs("balanced", n_docs=90, seed=0)
-    csv = tmp_path / "data" / "gongwen.csv"
+    csv = tmp_path / "data" / "train.csv"
     csv.parent.mkdir()
     df.to_csv(csv, index=False)
     out = tmp_path / "output"
