@@ -1,4 +1,4 @@
-# 安裝指南 — 公文 NLP Pipeline
+# 安裝指南 — 中文文本 NLP Pipeline
 
 本頁說明如何在不同目標平台安裝 PyTorch 與 NLP 依賴。授權合規見 [LICENSES.md](LICENSES.md)，
 容器部署見 [DEPLOYMENT.md](DEPLOYMENT.md)。

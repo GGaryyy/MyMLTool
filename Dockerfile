@@ -1,4 +1,4 @@
-# 公文 NLP Pipeline — 交付客戶設備的分析工具映像
+# 中文文本 NLP Pipeline — 交付客戶設備的分析工具映像
 #
 # 主力平台: x86_64 + RTX 4070 (Ada, sm_89) / RTX 5070 Ti (Blackwell, sm_120)。
 # 單一 CUDA 12.8 映像同時涵蓋兩張卡。GB10 (ARM64) 為預留設計，見 docs/nlp/DEPLOYMENT.md。
@@ -14,8 +14,8 @@
 ARG BASE_IMAGE=pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
 FROM ${BASE_IMAGE}
 
-LABEL org.opencontainers.image.title="MyMLTool 公文 NLP Pipeline"
-LABEL org.opencontainers.image.description="Traditional-Chinese government-document text classification analysis and benchmark tool"
+LABEL org.opencontainers.image.title="MyMLTool 中文文本 NLP Pipeline"
+LABEL org.opencontainers.image.description="Traditional-Chinese text classification analysis and benchmark tool"
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \

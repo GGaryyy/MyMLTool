@@ -1,0 +1,37 @@
+# 中文文本分類 — 完整可執行範例（單標籤多類別）
+# 用法 (WSL):
+#   cd /mnt/d/IT/githubProbject/MyMLTool
+#   .venv/bin/python -m src.nlp.cli eda        --config configs/classification.example.yaml
+#   .venv/bin/python -m src.nlp.cli benchmark  --config configs/classification.example.yaml
+
+data:
+  csv_path: data/train.csv     # ← 改成你的 CSV 路徑
+  text_col: text               # 文字欄的欄位名稱（或整數位置，0-based）
+  label_col: label             # 標籤欄的欄位名稱（或整數位置；預設 -1 = 最後一欄）
+  task_type: multiclass        # 單標籤=multiclass；多標籤(一欄 | 分隔)=multilabel
+  test_size: 0.2
+  val_size: 0.1
+  metadata_cols: []            # 結構化欄位（供 feature-select 用）；排除與標籤同義/衍生的欄位以免洩漏
+
+segment:
+  engine: spacy                # 字元切分（不依賴中國來源套件）
+
+device:
+  device: auto                 # auto | cuda | cpu
+  precision: auto              # auto（Blackwell/Ada→bf16）| bf16 | fp16 | fp32
+
+output_dir: output/nlp         # 報告與圖表輸出根目錄
+seed: 0
+
+models:
+  # 傳統 baseline（快、可解釋、CPU）
+  - {name: tfidf_logreg,    class_weight: balanced}
+  - {name: tfidf_linearsvm, class_weight: balanced}
+  - {name: tfidf_nb}
+  # 輕量深度（可用 GPU 加速）
+  - {name: textcnn,     epochs: 5, batch_size: 32, max_length: 512}
+  - {name: bilstm_attn, epochs: 5, batch_size: 32, max_length: 512}
+  # 中文 BERT 微調（首次需下載 google-bert/bert-base-chinese）
+  - {name: bert, epochs: 3, batch_size: 16, max_length: 512, class_weight: balanced}
+  # 句嵌入 + 線性分類器（少量標註資料常最佳）
+  - {name: sent_embed}

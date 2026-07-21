@@ -1,4 +1,4 @@
-"""Dataset loading and splitting for the 公文 NLP benchmark.
+"""Dataset loading and splitting for the Chinese-text NLP benchmark.
 
 Bridges a labelled CSV (or an in-memory text/label pair) into the
 :class:`TextDataset` bundle every model family consumes. The label space is

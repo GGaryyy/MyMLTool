@@ -1,4 +1,4 @@
-# Code Review Report — 公文 NLP Pipeline
+# Code Review Report — 中文文本 NLP Pipeline
 
 **Date:** 2026-07-21
 **Reviewer:** orchestrator synthesis over multi-agent implementation
@@ -59,4 +59,4 @@ No High/Critical findings.
 
 ## Overall Verdict
 
-**Approved with Notes.** The pipeline is coherent, well-tested, and compliant with the government constraints (no China-origin packages, license tracking, offline Docker delivery, PII masking). Notes CR-01 (SetFit/transformers pin) and CR-02 (LightGBM runtime) are environment/optional-feature caveats, both documented with clear remediation, and do not block delivery.
+**Approved with Notes.** The pipeline is coherent, well-tested, and compliant with the regulated-deployment constraints (no China-origin packages, license tracking, offline Docker delivery, PII masking). Notes CR-01 (SetFit/transformers pin) and CR-02 (LightGBM runtime) are environment/optional-feature caveats, both documented with clear remediation, and do not block delivery.

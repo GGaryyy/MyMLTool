@@ -1,7 +1,7 @@
 # Development Workflow
 
 > Project: **MyMLTool** — Python ML utilities (`src/data_prep.py`, `src/feature_shift.py`)
-> and the **`src/nlp/` 公文 NLP pipeline** (see §8).
+> and the **`src/nlp/` 中文文本 NLP pipeline** (see §8).
 > Last updated: 2026-07-21.
 
 This document describes the environment setup, build, test, security-scan, and
@@ -227,7 +227,7 @@ Workflow rules to remember:
 
 ---
 
-## 8. 公文 NLP Pipeline (`src/nlp/`) — 2026-07-21
+## 8. 中文文本 NLP Pipeline (`src/nlp/`) — 2026-07-21
 
 ### Environment
 

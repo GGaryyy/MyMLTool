@@ -222,13 +222,13 @@ clauses — which keeps malformed or adversarial inputs failing fast and loudly.
 
 ---
 
-# System Flow — 公文 (繁中) NLP Pipeline
+# System Flow — 中文文本 (繁中) NLP Pipeline
 
 _Added: 2026-07-21_
 
 The `src/nlp/` sub-package is a self-contained analysis-and-selection pipeline
-for Traditional-Chinese government-document text classification. It is built
-**before** real data arrives and runs on synthetic 公文 data; when labelled data
+for Traditional-Chinese text classification. It is built
+**before** real data arrives and runs on synthetic Chinese-text data; when labelled data
 appears it produces an EDA report and benchmarks candidate algorithms so the
 final model and preprocessing can be chosen from evidence.
 
@@ -293,7 +293,7 @@ Docker (`python -m src.nlp.cli` entrypoint) with `/data` `/config` `/output`
 x86_64 CUDA 12.8 image covers both 4070 and 5070 Ti; GB10/ARM64 is build-arg
 预留. See `docs/nlp/DEPLOYMENT.md`.
 
-## 6. Compliance (government use)
+## 6. Compliance (regulated/enterprise deployment)
 
 char-level segmentation (no jieba/pkuseg), BERT default from Google (not hfl),
 confident-learning self-implemented (no AGPL cleanlab), GPL CKIP isolated from

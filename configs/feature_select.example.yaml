@@ -1,4 +1,4 @@
-# Feature Selection 設定範例 — 公文 (繁中) 特徵篩選分析與建議
+# Feature Selection 設定範例 — 中文 (繁中) 特徵篩選分析與建議
 # 用法:
 #   python -m src.nlp.cli feature-select --config configs/feature_select.example.yaml
 #
@@ -9,19 +9,19 @@
 # 注意：詞彙層 FS 主要服務 TF-IDF baseline；BERT/句嵌入自學表徵不受影響。
 
 data:
-  csv_path: data/gongwen.csv
+  csv_path: data/train.csv
   text_col: text
   label_col: label
   task_type: multiclass        # multiclass | multilabel
   label_separator: "|"
 
-  # 結構化 metadata 欄位（公文常見）— 會做表格 FS + 相關性分析。
+  # 結構化 metadata 欄位（常見文件屬性）— 會做表格 FS + 相關性分析。
   # 留空 [] 則只跑詞彙層 FS。
   metadata_cols:
-    - 機關
-    - 文別
-    - 速別
-    - 密級
+    - 部門
+    - 文件類型
+    - 等級
+    - 分類
     - 年度
 
 output_dir: output/nlp

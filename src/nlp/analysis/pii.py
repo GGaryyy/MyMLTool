@@ -1,4 +1,4 @@
-"""Taiwan-focused PII scanning and text-normalization checks for 公文 EDA.
+"""Taiwan-focused PII scanning and text-normalization checks for Chinese text EDA.
 
 Detects Taiwan-style PII (身分證字號, 行動電話, 市話, email, 地址 heuristic)
 plus normalization hazards: full-width digits/letters, OCR look-alike

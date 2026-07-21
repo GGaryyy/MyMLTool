@@ -1,4 +1,4 @@
-"""Task-dispatched evaluation metrics for the 公文 benchmark harness.
+"""Task-dispatched evaluation metrics for the Chinese-text benchmark harness.
 
 :func:`compute_metrics` inspects ``label_space.is_multilabel`` and computes
 the matching metric set with ``zero_division=0`` everywhere. Every returned
@@ -56,7 +56,7 @@ def summarize_for_ranking(metrics: dict, is_multilabel: bool) -> float:
     """Headline score used to rank model runs: macro-F1 for both tasks.
 
     Macro-F1 weights every class equally, so it is robust to the long-tail
-    class imbalance typical of 公文 categories and stays comparable across
+    class imbalance typical of Chinese text categories and stays comparable across
     multiclass and multilabel runs; ``is_multilabel`` is accepted so call
     sites stay explicit should the headline metric ever diverge by task.
     """

@@ -1,4 +1,4 @@
-"""Chinese-BERT fine-tuning classifier for 公文 text classification.
+"""Chinese-BERT fine-tuning classifier for Chinese text classification.
 
 Wraps ``transformers.AutoModelForSequenceClassification`` behind the shared
 :class:`~src.nlp.models.base.TextClassifier` interface. The default backbone

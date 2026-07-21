@@ -1,4 +1,4 @@
-"""Per-class keyword extraction for 公文 corpora.
+"""Per-class keyword extraction for Chinese text corpora.
 
 Counts char 2-3 grams — in Chinese these read like words (資安, 採購,
 預算編列), so no segmenter is needed — and scores each gram against a

@@ -1,4 +1,4 @@
-"""SetFit few-shot classifier for 公文 text classification.
+"""SetFit few-shot classifier for Chinese text classification.
 
 SetFit contrastively fine-tunes a sentence-transformer on label pairs, then
 fits a classification head — strong when only a handful of examples per class

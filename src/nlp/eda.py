@@ -1,4 +1,4 @@
-"""Text EDA for Traditional-Chinese 公文 classification datasets.
+"""Text EDA for Traditional-Chinese text classification datasets.
 
 :func:`run_eda` is pure computation (no file writing — see
 :mod:`src.nlp.report` for writers). It produces char/token length

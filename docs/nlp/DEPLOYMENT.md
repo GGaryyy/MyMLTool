@@ -1,4 +1,4 @@
-# 部署指南 — 公文 NLP Pipeline (Docker 交付)
+# 部署指南 — 中文文本 NLP Pipeline (Docker 交付)
 
 交付給客戶設備 / 現場工程師的容器安裝與使用說明。安裝細節見 [INSTALL.md](INSTALL.md)，
 授權合規見 [LICENSES.md](LICENSES.md)。
@@ -123,7 +123,7 @@ output/nlp/
 | `CUDA out of memory` | batch_size 過大 | 調小 config 的 `batch_size` / `max_length` |
 | 離線環境找不到模型 | 未預下載或路徑錯 | 跑 `download_models.py`，確認掛 `/models` 且 `HF_HUB_OFFLINE=1` |
 | driver 太舊 | driver < 570 | 更新 NVIDIA 驅動 |
-| BERT 對超長公文截斷 | 文本 > 512 token | config 開啟滑窗（見 benchmark 範例），或參考 EDA 的 >512 比例 |
+| BERT 對超長文本截斷 | 文本 > 512 token | config 開啟滑窗（見 benchmark 範例），或參考 EDA 的 >512 比例 |
 
 ---
 

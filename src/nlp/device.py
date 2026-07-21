@@ -1,4 +1,4 @@
-"""GPU / device detection and diagnostics for the 公文 NLP pipeline.
+"""GPU / device detection and diagnostics for the Chinese-text NLP pipeline.
 
 Resolves a :class:`src.nlp.config.DeviceConfig` policy (device ``auto`` /
 ``cuda`` / ``cpu`` plus precision) into a concrete runtime plan BEFORE any

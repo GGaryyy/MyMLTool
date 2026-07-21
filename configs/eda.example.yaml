@@ -1,10 +1,10 @@
-# EDA 設定範例 — 公文 (繁中) 文本資料分析
+# EDA 設定範例 — 中文 (繁中) 文本資料分析
 # 用法 (WSL / 容器內):
 #   python -m src.nlp.cli eda --config configs/eda.example.yaml
 # 或掛載到容器: -v $(pwd)/configs:/config  然後 --config /config/eda.example.yaml
 
 data:
-  csv_path: data/gongwen.csv   # 兩欄以上的 CSV；text 欄與 label 欄如下指定
+  csv_path: data/train.csv     # 兩欄以上的 CSV；text 欄與 label 欄如下指定
   text_col: text               # 欄名或整數位置 (0-based)；預設 0
   label_col: label             # 欄名或整數位置；預設 -1 (最後一欄，沿用 repo 慣例)
   task_type: multiclass        # multiclass | multilabel

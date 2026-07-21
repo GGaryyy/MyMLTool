@@ -1,8 +1,8 @@
-# Security Report — 公文 NLP Pipeline
+# Security Report — 中文文本 NLP Pipeline
 
 **Date:** 2026-07-21
 **Scope:** `src/nlp/` sub-package, CLI, Docker delivery
-**Context:** Government use — compliance constraints (no China-origin packages, license tracking, offline delivery) apply.
+**Context:** Regulated/enterprise deployment — compliance constraints (no China-origin packages, license tracking, offline delivery) apply.
 
 ## Executive Summary
 
@@ -61,7 +61,7 @@ Findings in the WSL dev venv, all in **developer / notebook tooling — NOT pipe
 
 No API keys, tokens, passwords, or private keys in source or config. Config examples use placeholder paths only. `.env` handling not required (offline tool, no credentials).
 
-## PII Handling (government 個資 compliance)
+## PII Handling (個資 compliance)
 
 - `analysis/pii.py` scans for Taiwan national IDs, mobile/landline numbers, emails, addresses; the EDA report **counts** PII but **masks** every snippet (`test_pii_masked_in_eda_report`, `test_pii_scan_masks_snippets`).
 - Raw national IDs never appear verbatim in `eda_report.md` / `.json` (asserted).
