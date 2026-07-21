@@ -1,0 +1,29 @@
+# 公文 NLP Pipeline — 本機/客戶設備執行範本
+#
+# 需要 NVIDIA Container Toolkit。用法:
+#   docker compose run --rm nlp diagnose
+#   docker compose run --rm nlp eda --config /config/eda.example.yaml
+#   docker compose run --rm nlp benchmark --config /config/benchmark.example.yaml
+#
+# Windows 主機需 Docker Desktop + WSL2 backend。
+
+services:
+  nlp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mymltool-nlp:latest
+    volumes:
+      - ./data:/data:ro          # 客戶資料 (唯讀)
+      - ./configs:/config:ro     # YAML 設定
+      - ./output:/output         # 報告與圖表產出
+      - ./models:/models         # 離線預下載模型 (HF_HOME)
+    environment:
+      - HF_HUB_OFFLINE=1         # 離線模式；線上下載時設 0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

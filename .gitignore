@@ -17,6 +17,15 @@ htmlcov/
 # Program-generated files
 output/
 
+# Customer data & delivery artifacts (never commit)
+# Root-anchored so they don't match source dirs like src/nlp/models/.
+/data/
+/models/
+*.tar
+
+# Claude Code local tooling
+.claude/
+
 # OS / editor
 .DS_Store
 .idea/

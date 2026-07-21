@@ -1,7 +1,8 @@
 # Development Workflow
 
-> Project: **MyMLTool** — Python ML utilities (`src/data_prep.py`, `src/feature_shift.py`).
-> Last updated: 2026-06-08.
+> Project: **MyMLTool** — Python ML utilities (`src/data_prep.py`, `src/feature_shift.py`)
+> and the **`src/nlp/` 公文 NLP pipeline** (see §8).
+> Last updated: 2026-07-21.
 
 This document describes the environment setup, build, test, security-scan, and
 reporting workflow for this project, and how they map to the mandatory
@@ -223,3 +224,54 @@ Workflow rules to remember:
 > issues (rebuilding the detector reference from a mixed-dtype object array, training
 > `LogisticRegression`/`StandardScaler` on a string column, and asserting zero KS
 > false-positives). All were fixed in the tests; the `src` modules were correct.
+
+---
+
+## 8. 公文 NLP Pipeline (`src/nlp/`) — 2026-07-21
+
+### Environment
+
+The NLP pipeline adds heavy deps split into `requirements-nlp.txt` (torch≥2.7,
+transformers, spaCy, sentence-transformers, setfit, lightgbm). Install torch by
+platform FIRST (see `docs/nlp/INSTALL.md`): x86_64 4070/5070 Ti → cu128 index;
+GB10/ARM64 → NVIDIA aarch64 wheel; CI → cpu. Development/testing runs in the
+**WSL (Ubuntu 24.04) venv** with a real RTX 4070 visible.
+
+```bash
+# Run the NLP suite (WSL). HF_HUB_OFFLINE avoids accidental model downloads.
+wsl -e bash -lc "cd /mnt/d/IT/githubProbject/MyMLTool && \
+  HF_HUB_OFFLINE=1 .venv/bin/python -m pytest -k nlp -q"
+
+# CLI (also the Docker entrypoint)
+.venv/bin/python -m src.nlp.cli diagnose
+.venv/bin/python -m src.nlp.cli eda --config configs/eda.example.yaml
+.venv/bin/python -m src.nlp.cli feature-select --config configs/feature_select.example.yaml
+.venv/bin/python -m src.nlp.cli benchmark --config configs/benchmark.example.yaml
+```
+
+### New pytest markers
+
+`gpu` (needs CUDA), `slow`, `network` (needs model download) — all registered in
+`pytest.ini`; GPU/network/LightGBM tests skip-gate so a bare run stays green.
+
+### Latest NLP results (2026-07-21)
+
+| Metric | Value |
+|--------|-------|
+| Total (whole repo) | **427 passed, 2 skipped** |
+| Line coverage (`src/`) | **91%** |
+| Skips | `tfidf_gbm` (libgomp absent in WSL; present in Docker), `setfit` (transformers 5.x incompat + network) |
+| Real-GPU check | RTX 4070 → `architecture: ada`, `precision: bf16`, `compatibility: OK` |
+
+### Docker delivery
+
+```bash
+docker build -t mymltool-nlp:latest .
+python scripts/download_models.py --dest ./models      # offline model pre-fetch
+docker save -o mymltool-nlp.tar mymltool-nlp:latest    # air-gapped transfer
+docker compose run --rm nlp diagnose                    # on-site verification
+```
+
+See `docs/nlp/DEPLOYMENT.md` for the full customer-site procedure and
+`docs/nlp/LICENSES.md` for the compliance inventory (no China-origin packages;
+GPL/AGPL excluded from the default image).

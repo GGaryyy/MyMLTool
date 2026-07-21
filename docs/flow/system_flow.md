@@ -219,3 +219,83 @@ re-run `prepare_data` on fresh data and retrain the model — closing the loop.
 
 All error paths use specific exception types — there are no bare `except`
 clauses — which keeps malformed or adversarial inputs failing fast and loudly.
+
+---
+
+# System Flow — 公文 (繁中) NLP Pipeline
+
+_Added: 2026-07-21_
+
+The `src/nlp/` sub-package is a self-contained analysis-and-selection pipeline
+for Traditional-Chinese government-document text classification. It is built
+**before** real data arrives and runs on synthetic 公文 data; when labelled data
+appears it produces an EDA report and benchmarks candidate algorithms so the
+final model and preprocessing can be chosen from evidence.
+
+## 1. Component map
+
+```
+                 ┌──────────── config (YAML → RunConfig) ────────────┐
+                 │  task_type · segment · device · models · metadata │
+                 └───────────────────────────────────────────────────┘
+   CSV ─► datasets ─► LabelSpace ─┬─► eda ───────► report(md/json/png)
+                                  ├─► analysis/{difficulty,label_quality,
+                                  │              keywords,pii,feature_selection}
+                                  └─► harness ──► models/* ──► metrics ──► report
+   device (GPU detect + wheel gate) feeds the torch model families.
+   cli: diagnose · eda · feature-select · benchmark · download-models
+```
+
+## 2. Data flow
+
+| Stage | Input | Output | Module |
+|-------|-------|--------|--------|
+| Load & split | CSV (text + label [+ metadata]) | `TextDataset` (stratified train/val/test) | `datasets` |
+| EDA | texts + labels | `TextEdaReport` (length, imbalance, vocab, dup, leakage, PII, >512-token) | `eda`, `analysis/pii` |
+| Feature selection | texts + labels + metadata_df | term FS + metadata relevance/correlation recommendations | `analysis/feature_selection` |
+| Selection analysis | texts + labels | difficulty / label-quality / keywords | `analysis/*` |
+| Benchmark | `TextDataset` + model configs | `BenchmarkResult` (per-model metrics + ranking) | `harness`, `models/*`, `metrics` |
+| Report | any of the above | md + json + PNG in `output/nlp/` | `report` |
+
+## 3. Model families (pluggable `TextClassifier`)
+
+| Family | Models | Device |
+|--------|--------|--------|
+| baseline | tfidf_{logreg,linearsvm,nb,tree}, tfidf_lightgbm | CPU |
+| lightweight_dl | textcnn, bilstm_attn (char embeddings) | CPU/GPU, bf16 autocast |
+| pretrained | bert (google-bert/bert-base-chinese), sent_embed, setfit | CPU/GPU, offline path |
+
+`harness.run_benchmark` runs every configured model on one seeded split;
+multiclass vs multilabel is decided solely by `LabelSpace.is_multilabel`.
+Per-model exceptions are captured, never aborting the benchmark.
+
+## 4. Device resolution & GPU compatibility
+
+```mermaid
+flowchart TD
+    A[DeviceConfig] --> B[detect_device]
+    B --> C{cuda available?}
+    C -- no --> D[cpu / fp32]
+    C -- yes --> E[compute capability + arch]
+    E --> F{sm_XY compatible with wheel arch_list?}
+    F -- binary/ptx --> G[bf16 on Blackwell/Ada]
+    F -- none --> H[warn; assert_wheel_compatible raises before training]
+```
+
+Targets: RTX 4070 (Ada 8.9), RTX 5070 Ti (Blackwell 12.0), GB10 (12.1, aarch64).
+Wheel-vs-device check uses CUDA major/minor + PTX rules to catch a torch wheel
+lacking the card's kernels before a cryptic runtime failure.
+
+## 5. Delivery
+
+Docker (`python -m src.nlp.cli` entrypoint) with `/data` `/config` `/output`
+`/models` volumes; offline via `HF_HUB_OFFLINE=1` + `docker save/load`. Single
+x86_64 CUDA 12.8 image covers both 4070 and 5070 Ti; GB10/ARM64 is build-arg
+预留. See `docs/nlp/DEPLOYMENT.md`.
+
+## 6. Compliance (government use)
+
+char-level segmentation (no jieba/pkuseg), BERT default from Google (not hfl),
+confident-learning self-implemented (no AGPL cleanlab), GPL CKIP isolated from
+the default image, PII masked in reports, `yaml.safe_load`, torch
+`weights_only=True`. Full inventory: `docs/nlp/LICENSES.md`.
