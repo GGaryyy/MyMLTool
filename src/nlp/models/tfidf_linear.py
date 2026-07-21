@@ -1,4 +1,4 @@
-"""TF-IDF + classic sklearn baselines for 公文 text classification.
+"""TF-IDF + classic sklearn baselines for Chinese text classification.
 
 One class covers four estimator variants (logistic regression, linear SVM,
 multinomial naive Bayes, decision tree) behind the shared

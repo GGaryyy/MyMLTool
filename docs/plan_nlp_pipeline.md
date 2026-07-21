@@ -1,4 +1,4 @@
-# 公文 (繁中) NLP 分類分析與選型 Pipeline — 實作計畫
+# 中文文本 (繁中) NLP 分類分析與選型 Pipeline — 實作計畫
 
 > 核准日期：2026-07-21（含深度 re-review 修訂）。原始計畫與討論記錄見 git 歷史。
 
@@ -6,15 +6,15 @@
 
 現有 `MyMLTool` 是通用 ML 模板（`Classification/`、`Regression/` 教學腳本 + `src/data_prep.py`、`src/feature_shift.py`），完全沒有 NLP、PyTorch、GPU 相關程式碼。
 
-需求：工具要用在**公文領域（繁體中文 NLP 文本分類）**，但**目前尚無資料**。因此預先建 pipeline，資料到位即可：
-1. 對公文做**資料分析（EDA）**，判斷資料特性（長度、類別分布、不平衡、標註品質…）。
+需求：工具要用在**中文文本領域（繁體中文 NLP 文本分類）**，但**目前尚無資料**。因此預先建 pipeline，資料到位即可：
+1. 對中文文本做**資料分析（EDA）**，判斷資料特性（長度、類別分布、不平衡、標註品質…）。
 2. **benchmark 多種候選演算法**，用分析結果決定前處理與模型選型。
 
 ## 已確認決策
 
 - **標籤結構**：三種都支援 → 單標籤多類別、不平衡多類別、多標籤（分析後選）。
 - **交付物**：EDA 分析模組 + 可插拔訓練/評估 benchmark 框架。
-- **合規（政府硬性要求）**：
+- **合規（法規遵循／企業部署要求）**：
   - **禁用中國來源套件/模型**：jieba、pkuseg、hfl 系列（哈工大+科大訊飛）全部剔除。
   - 斷詞用 **spaCy**（MIT）`Chinese(segmenter="char")` — 必須明確指定 char，因 spaCy 中文模型底層預設呼叫 jieba/pkuseg。
   - 每個依賴與預訓練模型記入 `docs/nlp/LICENSES.md` 含**來源國別**。
@@ -41,7 +41,7 @@ src/nlp/
   device.py       # GPU 偵測與精度策略（Ada + Blackwell + GB10/ARM64）
   segment.py      # 斷詞抽象：spacy(char) / char / bert / ckip(opt-in)
   labels.py       # LabelSpace：單/多標籤編碼、is_multilabel、class 統計
-  synth.py        # 合成繁中公文假資料（balanced/imbalanced/multilabel + 注入瑕疵）
+  synth.py        # 合成繁中文本假資料（balanced/imbalanced/multilabel + 注入瑕疵）
   eda.py          # 文本 EDA -> TextEdaReport + 圖表
   metrics.py      # 依 task_type 分派指標（含 balanced acc、macro PR-AUC）
   datasets.py     # 文字 CSV 載入、train/val/test 分層三向切分、多標籤 | 分隔

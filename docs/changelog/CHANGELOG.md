@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **`src/nlp/` — 公文 (繁中) NLP text-classification analysis & selection pipeline.**
-  A pre-built, data-agnostic pipeline (runs on synthetic 公文 data until real
+- **`src/nlp/` — 中文文本 (繁中) NLP text-classification analysis & selection pipeline.**
+  A pre-built, data-agnostic pipeline (runs on synthetic Chinese-text data until real
   data arrives) that produces (a) a text EDA report and (b) a pluggable model
   benchmark for algorithm selection. PyTorch-based; GPU-aware for RTX 4070
   (Ada), RTX 5070 Ti (Blackwell) and GB10 (Grace-Blackwell/ARM64).
@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `metadata_cols`), `labels` (`LabelSpace`), `metrics` (task-dispatched:
     accuracy/balanced-acc/macro-micro-weighted F1/PR-AUC; multilabel subset-acc/
     hamming/per-label), `segment` (spaCy **char** segmentation — avoids
-    jieba/pkuseg), `synth` (deterministic synthetic 公文 with injected defects),
+    jieba/pkuseg), `synth` (deterministic synthetic Chinese text with injected defects),
     `datasets` (stratified train/val/test), `harness` (`run_benchmark`, per-model
     error isolation), `report` (md/json/PNG writers), `cli`
     (`diagnose`/`eda`/`feature-select`/`benchmark`/`download-models`).

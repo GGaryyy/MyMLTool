@@ -1,6 +1,6 @@
 """Integration tests: config -> dataset -> EDA / feature-select / benchmark.
 
-Exercises the modules together on synthetic 公文 data written to a temp CSV,
+Exercises the modules together on synthetic Chinese text data written to a temp CSV,
 plus the CLI subcommands end to end. CPU + baseline models only (no torch
 training, no lightgbm/setfit) so the suite stays fast and dependency-light.
 """
@@ -40,7 +40,7 @@ def synth_csv(tmp_path):
     from src.nlp.synth import generate_synthetic_gov_docs
 
     df = generate_synthetic_gov_docs("imbalanced", n_docs=120, seed=0)
-    path = tmp_path / "gongwen.csv"
+    path = tmp_path / "data.csv"
     df.to_csv(path, index=False)
     return path
 

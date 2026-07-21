@@ -116,7 +116,7 @@ def test_stratified_split_keeps_every_class_everywhere():
 
 
 def test_single_member_class_warns_and_still_splits():
-    texts = [f"第{i}份公文" for i in range(100)]
+    texts = [f"第{i}份文件" for i in range(100)]
     labels = ["人事"] * 50 + ["預算"] * 49 + ["罕見類"]
     with pytest.warns(UserWarning, match="non-stratified"):
         ds = split_text_dataset(texts, labels, task_type="multiclass", seed=0)
@@ -130,7 +130,7 @@ def test_single_member_class_warns_and_still_splits():
 # val_size = 0
 # --------------------------------------------------------------------------- #
 def test_val_size_zero_gives_empty_val_multiclass():
-    texts = [f"第{i}份公文" for i in range(100)]
+    texts = [f"第{i}份文件" for i in range(100)]
     labels = [TOPICS[i % 5] for i in range(100)]
     ds = split_text_dataset(texts, labels, task_type="multiclass", val_size=0.0, seed=0)
     assert ds.texts_val == []

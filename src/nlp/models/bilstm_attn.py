@@ -1,4 +1,4 @@
-"""BiLSTM + additive attention classifier for 公文 text classification.
+"""BiLSTM + additive attention classifier for Chinese text classification.
 
 Character-embedding -> bidirectional LSTM -> additive (Bahdanau-style)
 attention pooling over time (padding masked out) -> dropout -> linear head.

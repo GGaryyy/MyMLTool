@@ -1,4 +1,4 @@
-"""Frozen sentence-embedding + linear classifier for 公文 text.
+"""Frozen sentence-embedding + linear classifier for Chinese text.
 
 Encodes documents once with a frozen multilingual sentence-transformer, then
 fits a cheap linear head (LogisticRegression, one-vs-rest for multilabel).

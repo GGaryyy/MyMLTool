@@ -85,7 +85,7 @@ def test_docs_with_pii_counts_documents_not_matches():
     report = scan_pii([
         "身分證A123456789，電話02-2345-6789。",  # two hits, one doc
         "信箱someone@example.com。",
-        "無任何個資的一般公文內容。",
+        "無任何個資的一般文件內容。",
     ])
     assert report.total_docs == 3
     assert report.docs_with_pii == 2
@@ -185,7 +185,7 @@ def test_fullwidth_detected_and_counted():
 
 
 def test_ocr_suspects_counted_per_char():
-    report = check_normalization(["公文編號〇〇一ｌ號○。"])
+    report = check_normalization(["文件編號〇〇一ｌ號○。"])
     assert report.docs_with_ocr_suspects == 1
     assert report.ocr_suspect_counts == {"〇": 2, "ｌ": 1, "Ｏ": 0, "○": 1}
 

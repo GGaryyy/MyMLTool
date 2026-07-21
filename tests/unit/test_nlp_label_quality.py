@@ -94,7 +94,7 @@ def test_tiny_corpus_returns_zero_suspects_with_note():
 
 
 def test_single_class_returns_zero_suspects_with_note():
-    texts = [f"公文內容第{i}號，人員陞遷案。" for i in range(20)]
+    texts = [f"文件內容第{i}號，人員陞遷案。" for i in range(20)]
     labels = ["人事"] * 20
     report = find_label_issues(texts, labels, TASK_MULTICLASS, seed=0)
     assert report.n_suspects == 0

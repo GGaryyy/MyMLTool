@@ -1,4 +1,4 @@
-"""Unit tests for src.nlp.eda — run_eda statistics on synthetic 公文 data."""
+"""Unit tests for src.nlp.eda — run_eda statistics on synthetic Chinese text data."""
 
 import json
 
@@ -54,7 +54,7 @@ def test_imbalance_detected_and_minority_flagged(imbalanced_report):
 
 def test_single_class_entropy_is_one():
     report = run_eda(
-        ["第一份公文內容說明如下", "第二份公文內容說明如下"],
+        ["第一份文件內容說明如下", "第二份文件內容說明如下"],
         ["人事", "人事"],
         _config(),
     )
@@ -79,7 +79,7 @@ def test_synth_defects_surface_in_quality(imbalanced_report):
 
 def test_empty_and_short_texts_counted():
     report = run_eda(
-        ["", "這是一份長度正常的公文內容說明", "短文"],
+        ["", "這是一份長度正常的文件內容說明", "短文"],
         ["甲", "乙", "甲"],
         _config(),
     )
@@ -93,14 +93,14 @@ def test_near_duplicates_detected_but_exact_dups_excluded():
     near_a = base + "一"
     near_b = base + "二"
     report = run_eda(
-        [near_a, near_b, "完全不同的另一份公文內容僅供對照使用"],
+        [near_a, near_b, "完全不同的另一份文件內容僅供對照使用"],
         ["資訊安全", "資訊安全", "人事"],
         _config(),
     )
     assert report.quality.near_duplicate_pairs == 1
 
     exact = run_eda(
-        [base, base, "完全不同的另一份公文內容僅供對照使用"],
+        [base, base, "完全不同的另一份文件內容僅供對照使用"],
         ["資訊安全", "資訊安全", "人事"],
         _config(),
     )
@@ -161,9 +161,9 @@ def test_multilabel_per_label_counts_sum_at_least_n_docs():
 # --------------------------------------------------------------------------- #
 def test_leakage_detects_shared_exact_text():
     texts = [
-        "共用的公文內容甲種文件全文",
+        "共用的文件內容甲種文件全文",
         "訓練集專屬的文件內容一",
-        "共用的公文內容甲種文件全文",
+        "共用的文件內容甲種文件全文",
         "測試集專屬的文件內容二",
     ]
     labels = ["人事", "預算", "人事", "預算"]

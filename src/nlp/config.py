@@ -1,4 +1,4 @@
-"""Configuration system for the 公文 NLP pipeline.
+"""Configuration system for the Chinese-text NLP pipeline.
 
 YAML files are parsed with ``yaml.safe_load`` and validated into typed
 dataclasses. Unknown keys are rejected so config typos fail fast. Heavy

@@ -1,4 +1,4 @@
-# 公文 NLP Pipeline — 本機/客戶設備執行範本
+# 中文文本 NLP Pipeline — 本機/客戶設備執行範本
 #
 # 需要 NVIDIA Container Toolkit。用法:
 #   docker compose run --rm nlp diagnose

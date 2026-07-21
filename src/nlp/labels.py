@@ -1,4 +1,4 @@
-"""Label-space handling for multiclass and multilabel 公文 classification.
+"""Label-space handling for multiclass and multilabel Chinese text classification.
 
 A :class:`LabelSpace` owns the ordered class list and converts between raw
 string labels and the encoded arrays every model family consumes:

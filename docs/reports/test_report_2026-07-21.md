@@ -1,7 +1,7 @@
-# Test Report — 公文 NLP Pipeline
+# Test Report — 中文文本 NLP Pipeline
 
 **Date:** 2026-07-21
-**Scope:** `src/nlp/` sub-package (公文 繁中 NLP 分析與選型 pipeline) + Feature Selection
+**Scope:** `src/nlp/` sub-package (中文文本 繁中 NLP 分析與選型 pipeline) + Feature Selection
 **Environment:** WSL Ubuntu 24.04, Python 3.12.3, torch 2.11.0+cu128, RTX 4070 (Ada, sm_89) visible; sklearn 1.9, pandas 3.0, numpy 2.4, transformers 5.14.1, spaCy 3.8.
 
 ## Execution Summary
@@ -49,7 +49,7 @@ Command: `pytest -p no:cacheprovider --cov=src` (with `HF_HUB_OFFLINE=1`).
 | **setfit_clf** | **33%** (network + version-gated — see skips) |
 | **TOTAL** | **91%** |
 
-## Model Functional Verification (CPU, synthetic 公文 data)
+## Model Functional Verification (CPU, synthetic Chinese-text data)
 
 All model families train and produce well-formed probabilities (multiclass rows sum to 1; multilabel in [0,1]):
 

@@ -1,4 +1,4 @@
-"""Task-difficulty analysis for 公文 classification.
+"""Task-difficulty analysis for Chinese text classification.
 
 Answers "how hard is this classification task and how much data do we
 need" with three cheap, CPU-only views:

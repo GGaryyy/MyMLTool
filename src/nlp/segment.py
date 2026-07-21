@@ -1,4 +1,4 @@
-"""Chinese segmenter abstraction for 公文 EDA token statistics.
+"""Chinese segmenter abstraction for text EDA token statistics.
 
 Provides a uniform :class:`Segmenter` interface over several tokenization
 engines so exploratory statistics (token counts, length distributions,

@@ -1,4 +1,4 @@
-"""TF-IDF -> TruncatedSVD -> LightGBM baseline for 公文 classification.
+"""TF-IDF -> TruncatedSVD -> LightGBM baseline for Chinese text classification.
 
 Gradient boosting wants dense, reasonably low-dimensional inputs, so the
 char TF-IDF matrix (same vectorizer choice as the linear baselines: char
