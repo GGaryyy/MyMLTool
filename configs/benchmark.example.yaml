@@ -1,0 +1,64 @@
+# Benchmark 設定範例 — 公文 (繁中) 分類演算法選型
+# 用法:
+#   python -m src.nlp.cli benchmark --config configs/benchmark.example.yaml
+#
+# harness 會用「同一組 seeded 切分」跑下列所有模型，輸出對照報告到 output_dir。
+# 模型名稱對應 src/nlp/models/registry.py。單一模型失敗不會中斷其他模型。
+
+data:
+  csv_path: data/gongwen.csv
+  text_col: text
+  label_col: label
+  task_type: multiclass        # multiclass | multilabel
+  label_separator: "|"
+  test_size: 0.2
+  val_size: 0.1
+
+segment:
+  engine: spacy
+
+device:
+  device: auto                 # auto | cuda | cpu
+  precision: auto              # auto | bf16 | fp16 | fp32 (auto: Blackwell/Ada→bf16)
+  compile: false               # torch.compile (保守關閉；穩定後可開)
+
+output_dir: output/nlp
+seed: 0
+
+models:
+  # --- 傳統 baseline (CPU, 無 torch) ---
+  - name: tfidf_logreg
+    class_weight: balanced     # none | balanced (不平衡資料建議 balanced)
+  - name: tfidf_linearsvm
+    class_weight: balanced
+  - name: tfidf_nb
+  - name: tfidf_lightgbm
+    params: {n_estimators: 300, svd_components: 128}
+
+  # --- 輕量深度 (PyTorch, 可 GPU) ---
+  - name: textcnn
+    epochs: 5
+    batch_size: 32
+    max_length: 512
+  - name: bilstm_attn
+    epochs: 5
+    batch_size: 32
+
+  # --- 句嵌入 + 線性分類器 (少量標註資料常最佳) ---
+  - name: sent_embed
+    pretrained_path: null      # null → 線上下載預設模型；離線時填本地路徑
+    params: {embed_model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2}
+
+  # --- 中文預訓練 BERT 微調 ---
+  - name: bert
+    pretrained_path: null      # 離線: 指向 /models/bert-base-chinese
+    epochs: 3
+    batch_size: 16
+    learning_rate: 2.0e-5
+    max_length: 512
+    class_weight: balanced
+
+  # --- SetFit (少樣本對比微調；標註成本高時) ---
+  # - name: setfit
+  #   pretrained_path: null
+  #   epochs: 1

@@ -1,0 +1,25 @@
+# Heavy NLP / deep-learning dependencies for src/nlp (see docs/nlp/INSTALL.md).
+#
+# torch: install the wheel matching your platform BEFORE the rest:
+#   x86_64 + RTX 4070 / 5070 Ti (CUDA 12.8, covers sm_89 + sm_120):
+#     pip install "torch>=2.7" --index-url https://download.pytorch.org/whl/cu128
+#   GB10 / Grace-Blackwell (aarch64): use the NVIDIA aarch64 wheel / NGC container.
+#   CPU-only (CI):
+#     pip install "torch>=2.7" --index-url https://download.pytorch.org/whl/cpu
+#
+# License note (docs/nlp/LICENSES.md has the full inventory):
+#   torch BSD-3 | transformers/tokenizers Apache-2.0 | sentence-transformers Apache-2.0
+#   setfit Apache-2.0 | lightgbm MIT | spacy MIT
+# Prohibited: jieba / pkuseg / hfl models (China-origin), cleanlab (AGPL-3.0).
+# ckip-transformers (GPL-3.0, Academia Sinica TW) is opt-in only and NOT listed here.
+torch>=2.7
+transformers>=4.44
+sentence-transformers>=3.0
+# setfit 1.1.x is not yet compatible with transformers 5.x (imports the removed
+# transformers.training_args.default_logdir). SetFit is an OPTIONAL model; to use
+# it, pin transformers<5 in a dedicated environment. lightgbm needs the native
+# OpenMP runtime (Debian/Ubuntu: apt-get install libgomp1 — present in the
+# Docker base image).
+setfit>=1.0
+lightgbm>=4.3
+spacy>=3.7
